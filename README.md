@@ -1,5 +1,7 @@
 # OTel libary macros experience
 
+This project brings macros experience for [Otel project](https://github.com/abapify/otel).
+
 ## Why macros?
 
 Otel library - is a framework allowing us to generate telemetry events from the code programmatically.
