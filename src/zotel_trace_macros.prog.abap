@@ -18,6 +18,7 @@ define trace_start.
   " using zcl_otel_api is imortant because in badi we activate plugins
   data(trace) = zcl_otel_trace_api=>start_span( name = &1 ).
   do 1 times.
+    try.
 end-of-definition.
 
 define trace_start_with_context.
@@ -26,6 +27,7 @@ define trace_start_with_context.
       name = &1
       context = &2 ).
   do 1 times.
+    try.
 end-of-definition.
 
 define trace_start_external.
@@ -36,15 +38,23 @@ define trace_start_external.
         when trace_id is not initial and span_id is not initial
         then new zcl_otel_span_context( trace_id = &2 span_id = &3 ) ) ).
   do 1 times.
+    try.
 end-of-definition.
 
 define trace_end.
-
+  " we should catch any exception and fail span, then we can raise it further
+  catch cx_root into zcx_otel=>dummy.
+    if trace is bound.
+      trace_fail_cx zcx_otel=>dummy.
+    endif.
+    raise exception zcx_otel=>dummy.
+  endtry.
   enddo.
 " supposed to be called with trace_span macro prior to it
 if trace is bound.
   trace->end( ).
 endif.
+
 end-of-definition.
 
 define trace_fail.
