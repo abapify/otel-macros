@@ -52,7 +52,7 @@ So this `do 1 times` makes a trick.
 ### What if exception is raised
 
 So in real if we look what this code is doing:
-```
+```abap
 trace_start 'My new span'.
 "... do something
 trace_end.
@@ -60,7 +60,7 @@ endmethod.
 ```
 
 It's generating the code like:
-```
+```abap
 " using zcl_otel_api is imortant because in badi we activate plugins
   data(trace) = zcl_otel_trace_api=>start_span( name = &1 ).
   do 1 times.
