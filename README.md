@@ -87,3 +87,8 @@ endif.
 AS you can see we are always intercepting the appeared exception and also ending the span as failed with logged event ( fail reason ).
 
 It is very tricky to ask every developer to insert such a complicated contruction in every method, but with macros this experience becomes easier to use.
+
+## What it doesn't catch?
+
+- All non-catchable exceptions as any other abap code
+- Return statement. If return is used it will not work - that's how you have to make sure you end/fail you span before returning from the method.
