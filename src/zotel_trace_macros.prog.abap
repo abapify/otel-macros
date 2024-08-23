@@ -79,3 +79,7 @@ end-of-definition.
 define end_span.
   trace_end.
 end-of-definition.
+
+define trace_log.
+  trace->log( &1 ).
+end-of-definition.
