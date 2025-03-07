@@ -16,14 +16,14 @@
 
 define trace_start.
   " using zcl_otel_api is imortant because in badi we activate plugins
-  data(trace) = zcl_otel_trace_api=>start_span( name = &1 ).
+  data(trace) = zcl_otel=>tracer( )->start_span( name = &1 ).
   do 1 times.
 *    try.
 end-of-definition.
 
 define trace_start_with_context.
   " using zcl_otel_api is imortant because in badi we activate plugins
-  data(trace) = zcl_otel_trace_api=>start_span(
+  data(trace) = zcl_otel=>tracer( )->start_span(
       name = &1
       context = &2 ).
   do 1 times.
@@ -32,7 +32,7 @@ end-of-definition.
 
 define trace_start_external.
   " using zcl_otel_api is imortant because in badi we activate plugins
-  data(trace) = zcl_otel_trace_api=>start_span(
+  data(trace) = zcl_otel=>tracer( )->start_span(
       name = &1
       context = cond #(
         when &2  is not initial and &3 is not initial
